@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+	<style>
+		html, body, #map-canvas{
+			height: 100%; 
+			margin: 0px; 
+			padding: 0px; 
+			height: 500px;
+			font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+		} 
+
+		.navigation {
+			padding-left: 20px;
+			padding-top: 5px;
+			padding-bottom: 30px;
+			width:49%;
+			float:left;
+		}
+
+		.navigation h2 {
+			padding-bottom: -5px;
+		}
+
+		.navigation p {
+			font-size: .7em;
+		}
+
+		.chart {
+			padding-top: 10px;
+			padding-bottom: 30px;
+			width:49%;
+			float:left;
+			height: 300px;
+
+		}
+
+		.salary {
+			padding:5px;
+		}
+
+		.footer {
+
+		}
+
+
+		</style>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBct6oqg7fdGapy-iaC7Bnq3GCsaOQuG0c">
+</script>	<!-- Include jQuery -->
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable([
+	  ['Q','Bottom 20%', 'Fourth 20%', 'Middle 20%', 'Second 20%', 'Top 20%'],
+	  ['Quintiles', 20, 20, 20, 20, 20],
+	  ['Income', 3.2, 8.3, 14.4, 23, 51],
+	  ['Wealth', 0, 0, 2.6, 8.4, 88.9]
+	]);
+
+	var options = {
+	  title: 'Distribution of US Household Income and Wealth by Percent',
+	  bar: { groupWidth: '85%' },
+	  isStacked: true,
+	  hAxis: {maxValue: 100} 
+	};
+
+	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+	chart.draw(data, options);
+  }
+</script>	
+		<script>
+
+		// Move map declaration
+		var map;
+
+		function toggleLayer(firLayer,id)
+		{
+			if ($('#'+id).is(':checked')) {
+				firLayer.setMap(map);
+			}
+			else
+			{
+				firLayer.setMap(null);
+			}
+		}
+
+		function initialize() {
+			var mapOptions = {
+				zoom: 20,
+				center: new google.maps.LatLng(37.546562, -77.450477),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			// Set map    
+			map = new google.maps.Map(document.getElementById('map-canvas'),
+					mapOptions);
+
+			var defaultCenter = new google.maps.LatLng(37.546562, -77.450477)
+
+			// 
+			drawA = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 1.9,
+				strokeColor: '#008000',
+				fillColor: '#008000',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawB = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 3.13,
+				strokeColor: '#66CC00',
+				fillColor: '#66CC00',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawC = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 5.05,
+				strokeColor: '#FFFF00',
+				fillColor: '#FFFF00',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawD = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 9.28,
+				strokeColor: '#FF9900',
+				fillColor: '#FF9900',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawE = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 568.15,
+				strokeColor: '#990000',
+				fillColor: '#990000',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawF = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 6317.09,
+				strokeColor: '#000000',
+				fillColor: '#000000',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.3,
+				draggable: true
+			});
+
+			drawZ = new google.maps.Circle({
+				center: defaultCenter,
+				radius: 1,
+				strokeColor: '#008000',
+				fillColor: '#008000',
+				strokeOpacity: 0.8,
+				strokeWeight: 3,
+				fillOpacity: 0.9,
+				draggable: true
+			});
+
+
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+</head>
+<body>
+<div id="map-canvas"></div>
+<div class="navigation">
+		<h2> Income</h2>
+		<p>Check the boxes below to activate layers representing the income of the populations described.</p>
+			<div class="salary">The bottom 20% don't have any income.</div>
+			<div class="salary"><input id="fir_z" type="checkbox" onClick="toggleLayer(drawZ,'fir_z')" /> Fourth 20% - $20,593.00	</div>
+			<div class="salary"><input id="fir_a" type="checkbox" onClick="toggleLayer(drawA,'fir_a')" /> Middle 20% - $39,736.00	</div>
+			<div class="salary"><input id="fir_b" type="checkbox" onClick="toggleLayer(drawB,'fir_b')" /> Second 20% - $64,554.00	</div>
+			<div class="salary"><input id="fir_c" type="checkbox" onClick="toggleLayer(drawC,'fir_c')" /> Top 20% - $104,086.00</div>
+			<div class="salary"><input id="fir_d" type="checkbox" onClick="toggleLayer(drawD,'fir_d')" /> Top 5%  - $191,150.00 </div>
+			<div class="salary"><input id="fir_e" type="checkbox" onClick="toggleLayer(drawE,'fir_e')" /> Average CEO (S&P 500) - $11,700,000.00	(zoom out)</div>
+			<div class="salary"><input id="fir_f" type="checkbox" onClick="toggleLayer(drawF,'fir_f')" /> <a href="http://en.wikipedia.org/wiki/John_Hammergren">John Hammergren</a> - $131,200,000.00 (<em>really</em> zoom out) </div>
+</div>
+
+
+
+	<div class="chart" id="chart_div"></div>
+
+ 	<div class="footer">All thanks and mad props to <a href="https://www.youtube.com/watch?v=imINOY22spU">David Croteau</a> and hi to James and John.</div>
+</body>
+</html>
