@@ -17,6 +17,7 @@
 		<div class="col-md-12 column">
 			<div id="location"><h3>Ground zero &nbsp;&nbsp;<input type="text" id="us2-address" style="width: 400px"/></h3></div>
 			<h3>How far away are the really rich?
+			<!-- This is the dropdown menu that sets the us2-radius variable -->
 			<select id="us2-radius">
 			  <option value="1.9">Middle 20%</option>
 			  <option value="3.13">Second 20%</option>
@@ -27,11 +28,12 @@
 			</select>
 			</h3>
 			</div>
-
-
-			<div id="us2" style="width: 100%; height: 600px;"></div>				
+			<!-- This is the map section. -->
+			<div id="us2" style="width: 100%; height: 600px;"></div>	
+					
 			Lat.: <input type="text" id="us2-lat"/>
 			Long.: <input type="text" id="us2-lon"/>
+			<!-- This is the script that writes the default pieces and accepts the variables. -->			
 			<script>$('#us2').locationpicker({
 				location: {latitude: 37.546562, longitude: -77.450477},	
 				radius: 9.28,
